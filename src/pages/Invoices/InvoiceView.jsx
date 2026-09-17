@@ -6,7 +6,7 @@ import InvoiceForm from "./InvoiceForm.jsx";
 // import { fetchInvoice } from "../../../api/invoices.js";
 import { getData } from "../../api/apiAxios.js";
 
-import { downloadInvoicePdf } from "../../utils/generateInvoicePdf.js";
+import { downloadInvoicePdf } from "../../utils/GenerateInvoicePdf.js";
 
 function statusClass(status) {
   const s = (status || "").toLowerCase();
