@@ -6,7 +6,7 @@ import InvoiceForm from "./InvoiceForm.jsx";
 // import { fetchInvoice } from "../../../api/invoices.js";
 import { getData } from "../../api/apiAxios.js";
 
-import { downloadInvoicePdf } from "../../utils/GenerateInvoicePdf.js";
+//import { downloadInvoicePdf } from "../../utils/GenerateInvoicePdf.js";
 
 function statusClass(status) {
   const s = (status || "").toLowerCase();
@@ -70,9 +70,9 @@ export default function InvoiceView({id}) {
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
           <span className={`status-pill ${statusClass(invoice.status)}`}><span className="status-dot" />{invoice.status}</span>
-          <button className="btn btn-secondary btn-sm" onClick={() => downloadInvoicePdf(invoice)} title="Download PDF">
+          {/* <button className="btn btn-secondary btn-sm" onClick={() => downloadInvoicePdf(invoice)} title="Download PDF">
             <Download size={13} /> Download
-          </button>
+          </button> */}
           <a className="btn btn-secondary btn-sm" href={whatsappUrl} target="_blank" rel="noreferrer" title="Share summary via WhatsApp (text only — see note below)">
             <MessageCircle size={13} /> WhatsApp
           </a>
