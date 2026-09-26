@@ -1,5 +1,6 @@
 import DefaultForm from "../components/forms/DefaultForm";
 import ProductForm from "../pages/Products/ProductForm";
+import UserFrom from "../pages/Users/UserForm";
 import CustomerForm from "../pages/Customers/CustomerForm";
 import SupplierForm from "../pages/Suppliers/SupplierForm";
 import InvoiceFrom from "../pages/Invoices/InvoiceForm";
@@ -14,6 +15,7 @@ import PaymentForm from "../pages/Payments/PaymentForm"; // Temporary import for
 
 const formMap = {
   products: ProductForm,
+  users: UserFrom,
   customers: CustomerForm,
   suppliers: SupplierForm,
   invoices: InvoiceFrom,

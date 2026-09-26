@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { TramFront, Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
 import { login as apiLogin, forgotPassword as apiForgotPassword } from "../api/auth.js";
 
@@ -78,7 +79,11 @@ export default function Login({ onLogin }) {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
   const [mode, setMode] = useState("login");
+
+  const navigate = useNavigate();
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,13 +104,31 @@ export default function Login({ onLogin }) {
 
     setLoading(true);
     try {
-      const { user } = await apiLogin(email, password);
-      setLoading(false);
-      onLogin?.(user);
-    } catch {
-      setLoading(false);
-      onLogin?.({ email }); // mock fallback until a real backend exists
+        const { user } = await apiLogin(email, password);
+        //localStorage.setItem("userId", JSON.stringify(user.id));
+        const profile = {
+          userId: user.id,
+          name: user.name,
+          email: user.email,
+          mobile: user.mobile ?? "",
+          userTypeId: user.user_type_id,
+          userType: user.user_type?.name ?? "",
+        };
+        localStorage.setItem("profile", JSON.stringify(profile));
+        //console.log(userId);
+        setLoading(false);
+        setMessage("Login SUccess.");
+        navigate("/dashboard");
+        //onLogin?.(profile)  ;
     }
+    // catch {
+    //   setLoading(false);
+    //   onLogin?.({ email }); // mock fallback until a real backend exists
+    // }
+    catch (err) {
+    setLoading(false);
+    setMessage(err.response?.data?.message || "Login failed.");
+  }
   };
 
   if (mode === "forgot") {
@@ -159,8 +182,8 @@ export default function Login({ onLogin }) {
           <button type="submit" disabled={loading} className="btn btn-primary login-submit">
             {loading ? "Signing in…" : (<>Sign In <ArrowRight size={15} /></>)}
           </button>
+          <div>{message && <div className="login-error">{message}</div>}</div>
         </form>
-
         <div className="login-footnote">Accounts are Admin or Editor — access is set per user.</div>
       </div>
     </div>

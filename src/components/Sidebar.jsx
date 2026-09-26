@@ -7,6 +7,7 @@ import {
   FolderOpen,
   BookImage,
   Files,
+  LogOut,
   Users,
   Package,
   Receipt,
@@ -24,6 +25,11 @@ import {
 } from "lucide-react";
 
 export default function Sidebar({ counts, collapsed, onToggle }) {
+  const profile = JSON.parse(localStorage.getItem("profile") || "null");
+const handleLogout = () => {
+  localStorage.removeItem("profile");
+  window.location.href = "/";
+};
   const navItems = [
     { to: "/admin", label: "Dashboard", icon: LayoutGrid, end: true },
 
@@ -49,7 +55,8 @@ export default function Sidebar({ counts, collapsed, onToggle }) {
 
     { to: "/admin/ledgers", label: "Ledgers", icon: BookOpenCheck },
     { to: "/admin/reports", label: "Reports", icon: ChartNoAxesCombined },
-
+    { to: "/admin/reports/gst-returns", label: "GST Data", icon: ChartNoAxesCombined },
+    { to: "/admin/users", label: "Users", icon: Settings },
     { to: "/admin/settings", label: "Settings", icon: Settings },
   ];
 
@@ -86,8 +93,23 @@ export default function Sidebar({ counts, collapsed, onToggle }) {
       </div>
 
       <div className="sidebar-footer">
-        <div className="avatar">E</div>
-        {!collapsed && <div className="sidebar-footer-name">Editor</div>}
+        <div className="avatar">
+          {profile?.name?.charAt(0).toUpperCase() || "U"}
+        </div>
+
+        {!collapsed && (
+          <div className="sidebar-footer-name">
+            {profile?.name || "User"}
+          </div>
+        )}
+        <button
+    type="button"
+    onClick={handleLogout}
+    title="Logout"
+    className="logout-btn"
+  >
+    <LogOut size={17} />
+  </button>
       </div>
     </div>
   );

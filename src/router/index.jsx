@@ -1,10 +1,11 @@
 import React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter,Navigate,Outlet } from "react-router-dom";
 
 import AdminLayout from "../layouts/AdminLayout";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import ProductsList from "../pages/Dashboard/ProductsList";
 import CustomersList from "../pages/Customers/CustomerList";
+import UserList from "../pages/Users/UserList.jsx";
 import NotFound from "../pages/NotFound";
 import InvoicesList from "../pages/InvoicesList/InvoicesList";
 import SupplierList from "../pages/Suppliers/SupplierList.jsx";
@@ -29,16 +30,36 @@ import BalanceSheetList from "../pages/Reports/BalanceSheetList.jsx";
 import ProfitLossList from "../pages/Reports/ProfitLossList.jsx";
 import BalancesSummaryList from "../pages/Reports/BalancesSummaryList.jsx";
 import InvoiceView from "../pages/Invoices/InvoiceView.jsx";
+import Login from "../pages/Login.jsx";
+import GstReturns from "../pages/Reports/GstReturns.jsx";
+import Gstr1B2C from "../pages/Reports/Gstr1B2C.jsx";
+import HsnOutwardSummary from "../pages/Reports/HsnOutwardSummary.jsx";
+import DocumentsIssued from "../pages/Reports/DocumentsIssued.jsx";
+import ProductSalesReport from "../pages/Reports/ProductSalesReport.jsx";
+import Gstr1B2B from "../pages/Reports/Gstr1B2B.jsx";
 //import LedgersList from "../pages/Ledgers/LedgersList.jsx";
+
+function ProtectedRoute() {
+  const profile = localStorage.getItem("profile");
+
+  return profile ? <Outlet /> : <Navigate to="/" replace />;
+}
+
 
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <Login />,
+  },
+ {
+    element: <ProtectedRoute />,
+    children: [
+  {
     element: <AdminLayout />,
-
     children: [
       {
-        index: true,
+        //index: true,
+        path :"/admin",
         element: <Dashboard />,
       },
 
@@ -80,6 +101,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/customers",
         element: <CustomersList />,
+      },
+      {
+        path: "/admin/users",
+        element: <UserList/>,
       },
 
       {
@@ -163,6 +188,31 @@ const router = createBrowserRouter([
   element: <GstSummaryList />,
 },
 {
+  path: "/admin/reports/gst-returns",
+  element: <GstReturns/>,
+},
+
+{
+  path: "admin/reports/gst-returns/b2b",
+  element: <Gstr1B2B/>,
+},{
+  path: "admin/reports/gst-returns/b2c",
+  element: <Gstr1B2C/>,
+},
+{
+  path: "admin/reports/gst-returns/hsn-summary",
+  element: <HsnOutwardSummary/>,
+},
+{
+  path: "admin/reports/gst-returns/documents-issued",
+  element: <DocumentsIssued />,
+},
+{
+  path: "admin/reports/product-sales",
+  element: <ProductSalesReport />,
+},
+
+{
   path: "/admin/reports/balances-summary",
   element: <BalancesSummaryList />,
 },
@@ -181,6 +231,9 @@ const router = createBrowserRouter([
       },
     ],
   },
+]
+ }  
+
 ]);
 
 export default router;
