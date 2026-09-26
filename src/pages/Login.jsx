@@ -104,7 +104,7 @@ export default function Login({ onLogin }) {
 
     setLoading(true);
     try {
-        const { user } = await apiLogin(email, password);
+        const { user,token } = await apiLogin(email, password);
         //localStorage.setItem("userId", JSON.stringify(user.id));
         const profile = {
           userId: user.id,
@@ -115,6 +115,7 @@ export default function Login({ onLogin }) {
           userType: user.user_type?.name ?? "",
         };
         localStorage.setItem("profile", JSON.stringify(profile));
+        localStorage.setItem("token", token);
         //console.log(userId);
         setLoading(false);
         setMessage("Login SUccess.");

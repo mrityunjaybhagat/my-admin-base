@@ -6,6 +6,20 @@ const api = axios.create({
   headers: { "Content-Type": "application/json" },
 });
 
+// Add Sanctum token (For Laravel Only) to every API request
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
 // ✅ GET
 export const getData = async (endpoint) => {
   const res = await api.get(endpoint);
