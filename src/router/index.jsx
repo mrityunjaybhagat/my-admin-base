@@ -37,6 +37,11 @@ import HsnOutwardSummary from "../pages/Reports/HsnOutwardSummary.jsx";
 import DocumentsIssued from "../pages/Reports/DocumentsIssued.jsx";
 import ProductSalesReport from "../pages/Reports/ProductSalesReport.jsx";
 import Gstr1B2B from "../pages/Reports/Gstr1B2B.jsx";
+import NotificationsList from "../pages/Admin/NotificationsList.jsx";
+import Settings from "../pages/Admin/Settings.jsx";
+import EditProfileForm from "../pages/Admin/Editprofileform.jsx";
+import Profile from "../pages/Admin/Profile.jsx";
+import ImportData from "../pages/Admin/ImportData.jsx";
 //import LedgersList from "../pages/Ledgers/LedgersList.jsx";
 
 function ProtectedRoute() {
@@ -224,7 +229,18 @@ const router = createBrowserRouter([
   path: "/admin/reports/profit-and-loss",
   element: <ProfitLossList />,
 },
+{ path: "/admin/edit-profile", element: <EditProfileForm /> },
+{ path: "/admin/profile", element: <Profile /> },
+{
+  path: "/admin/settings",
+  element: <Settings />,
+},
+{
+  path: "/admin/settings/import",
+  element: <ImportData />,
+},
 
+{ path: "/admin/notifications", element: <NotificationsList /> },
       {
         path: "*",
         element: <NotFound />,
@@ -232,7 +248,7 @@ const router = createBrowserRouter([
     ],
   },
 ]
- }  
+ }, 
 
 ]);
 

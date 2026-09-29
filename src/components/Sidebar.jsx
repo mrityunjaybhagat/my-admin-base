@@ -18,11 +18,13 @@ import {
   Banknote,
   BookOpenCheck,
   Settings,
+  FileUp,
   ChevronLeft,
   TramFront,
   CircleDollarSign,
   ChartNoAxesCombined
 } from "lucide-react";
+import ProfileMenu from "./common/Profilemenu.jsx";
 
 export default function Sidebar({ counts, collapsed, onToggle }) {
   const profile = JSON.parse(localStorage.getItem("profile") || "null");
@@ -43,9 +45,9 @@ const handleLogout = () => {
     { to: "/admin/products", label: "Products", icon: Package, count: 10 },
 
     { to: "/admin/invoices", label: "Invoices", icon: Receipt, count: 10 },
-    { to: "/admin/payments", label: "Payments Received", icon: CircleDollarSign },
-
     { to: "/admin/purchases", label: "Purchases", icon: ShoppingCart, count: 10 },
+
+    { to: "/admin/payments", label: "Payments Received", icon: CircleDollarSign },    
     { to: "/admin/supplier-payments", label: "Supplier Payments", icon: CircleDollarSign },
 
     { to: "/admin/expenses", label: "Expenses", icon: WalletCards, count: 10 },
@@ -55,8 +57,10 @@ const handleLogout = () => {
 
     { to: "/admin/ledgers", label: "Ledgers", icon: BookOpenCheck },
     { to: "/admin/reports", label: "Reports", icon: ChartNoAxesCombined },
+    
     { to: "/admin/reports/gst-returns", label: "GST Data", icon: ChartNoAxesCombined },
     { to: "/admin/users", label: "Users", icon: Settings },
+    { to: "/admin/settings/import", label: "Import", icon: FileUp},
     { to: "/admin/settings", label: "Settings", icon: Settings },
   ];
 
@@ -92,8 +96,9 @@ const handleLogout = () => {
         ))}
       </div>
 
+<ProfileMenu user={profile} />
       <div className="sidebar-footer">
-        <div className="avatar">
+        {/* <div className="avatar">
           {profile?.name?.charAt(0).toUpperCase() || "U"}
         </div>
 
@@ -109,7 +114,7 @@ const handleLogout = () => {
     className="logout-btn"
   >
     <LogOut size={17} />
-  </button>
+  </button> */}
       </div>
     </div>
   );

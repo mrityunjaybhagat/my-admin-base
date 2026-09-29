@@ -27,8 +27,19 @@ export const getData = async (endpoint) => {
 };
 
 // ✅ POST
+// export const postData = async (endpoint, data) => {
+//   const res = await api.post(endpoint, data);
+//   return res.data;
+// };
+
 export const postData = async (endpoint, data) => {
-  const res = await api.post(endpoint, data);
+  const config = {};
+  if (data instanceof FormData) {
+    config.headers = {
+      "Content-Type": "multipart/form-data",
+    };
+  }
+  const res = await api.post(endpoint, data, config);
   return res.data;
 };
 

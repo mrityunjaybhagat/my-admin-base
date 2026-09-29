@@ -67,7 +67,7 @@ const handlePasswordSubmit = async (data) => {
       <div className="confirm-overlay" onClick={() => setShow(false)}>
           <div className={`confirm-box`} onClick={(e) => e.stopPropagation()} >
             <div className="confirm-title">
-                Change Password 
+                Change Password For
                 {/* For {passwordUser?.name} */}
             </div>
             <div className="confirm-message">
